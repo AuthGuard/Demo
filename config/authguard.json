@@ -1,0 +1,5 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "key": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyYzI4ZTY4Yi1jODgyLTQ3OWUtOTQ2Yi0xNDY0YWFjZTcwMGYiLCJ0eXBlIjoiQVBJIiwianRpIjoiOWY0NmFhMWQtMDg4Zi00YTlkLWI5YjQtY2ExYzg3Y2RjZjAyIn0.hFpe20phNvBG2_17tSvaClbSRyKyjYBTbNYRoeQf_Ck",
+  "secret": "FKvL11DI5rwgt51QgB3CVob3oWYrFNBzF0ROvu9Yaj8"
+}
