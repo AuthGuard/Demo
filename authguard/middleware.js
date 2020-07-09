@@ -10,7 +10,7 @@ function logJwtError(err) {
   }
 }
 
-function configureMiddleware(config) {
+function configureMiddleware(config, client) {
   return (req, res, next) => {
     const cookies = req.cookies;
 
@@ -18,12 +18,24 @@ function configureMiddleware(config) {
       jwt.verify(cookies.token, config.secret, function(err, decoded) {
         if (err) {
           logJwtError(err);
+          next();
         } else {
           log.info('ID token verified for user %s', decoded.sub);
-          req.loggedInUser = decoded.sub;
-        }
 
-        next();
+          client.getAccount(decoded.sub)
+            .then(account => {
+              log.info('User account retrieved %j', account);
+              req.loggedInUser = account;
+              next();
+            })
+            .catch(err => {
+              log.warn('Failed to get user account %s', decoded.sub);
+              res.status(401)
+                  .json({
+                    error: 'Failed to verify user'
+                  });
+            });
+        }
       });
     } else {
       next();

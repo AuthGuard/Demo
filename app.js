@@ -8,7 +8,7 @@ const logger = require('morgan');
 
 const authguardConfig = require('./config/authguard');
 const authguardClient = require('./authguard/client')(authguardConfig);
-const authguardMiddleware = require('./authguard/middleware')(authguardConfig);
+const authguardMiddleware = require('./authguard/middleware')(authguardConfig, authguardClient);
 
 const pagesRouter = require('./routes/pages');
 const authRouter = require('./routes/auth')(authguardClient);

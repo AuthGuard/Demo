@@ -46,6 +46,11 @@ function create(config) {
           .then(response => response.data);
 
       return responsePromise;
+    },
+
+    getAccount: (id) => {
+      return axios.get(config.baseUrl + '/accounts/' + id, headers(config.key))
+        .then(response => response.data);
     }
   };
 }

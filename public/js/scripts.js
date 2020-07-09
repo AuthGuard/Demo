@@ -22,8 +22,12 @@
 })(jQuery);
 
 function setCookie(name, value, maxAgeMinutes) {
-  var cookie = name + "=" + encodeURIComponent(value) + "; path=/; SameSite=Strict;";
+  const cookie = name + "=" + encodeURIComponent(value) + "; path=/; SameSite=Strict;";
   document.cookie = cookie;
+}
+
+function removeCookie(name) {
+  document.cookie = name + "=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
 }
 
 async function login(username, password) {
@@ -73,6 +77,13 @@ async function signup(signupRequest) {
   }
 }
 
+async function logout() {
+  // TODO inform the server of the action
+  return {
+    success: true
+  };
+}
+
 (
   function setLoginClickEvent() {
     const loginBtn = document.getElementById('loginBtn');
@@ -89,10 +100,9 @@ async function signup(signupRequest) {
                 console.log('Successful login');
                 result.response.json()
                   .then(json => {
-                    console.log(json);
                     const token = json.token;
                     setCookie('token', token);
-                    // window.location.href = "/";
+                    window.location.href = "/";
                   });
               } else {
                 console.error('Failed login', result);
@@ -127,7 +137,6 @@ async function signup(signupRequest) {
         signup(signupRequest)
           .then(result => {
             if (result.success) {
-              console.log('Successful signup');
               document.getElementById('signupFormDialog').style.display = 'none';
               document.getElementById('successDialog').style.display = 'block';
             } else {
@@ -139,6 +148,21 @@ async function signup(signupRequest) {
             console.error('Something went horribly wrong');
           });
       };
+    }
+  }
+)();
+
+(
+  function setLogoutEvent() {
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    if (logoutBtn) {
+      logoutBtn.onclick = () => {
+        logout().then(_ => {
+          removeCookie('token');
+          window.location.href = "/login";
+        });
+      }
     }
   }
 )();
