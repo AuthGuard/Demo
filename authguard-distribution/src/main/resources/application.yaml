@@ -1,0 +1,53 @@
+authguard:
+  injection:
+    packages: [ "com.authguard" ]
+
+  jwt:
+    algorithm: "HMAC256"
+    privateKey: "FKvL11DI5rwgt51QgB3CVob3oWYrFNBzF0ROvu9Yaj8"
+    issuer: "AuthGuard"
+    allowedAlgorithms: ["HMAC256"]
+    trustedIssuers: ["self"]
+
+  exchange:
+    allowed:
+      - from: "basic"
+        to: "idToken"
+      - from: "basic"
+        to: "otp"
+
+  idToken:
+    tokenLife: "1h"
+    refreshTokenLife: "1d"
+    useJti: true
+    includePermissions: true
+    includeRoles: true
+
+  otp:
+    lifeTime: "2m"
+    mode: "NUMERIC"
+    length: 6
+    generateToken: "accessToken"
+
+  authentication:
+    generateToken: "idToken"
+
+  accounts:
+    authguardAdminRole: "authguard_admin"
+    verifyEmail: true
+
+  apps:
+    authguardAdminClientRole: "authguard_admin_client"
+
+  oneTimeAdmin:
+    usernameVariable: "AUTHGUARD_OTA_USERNAME"
+    passwordVariable: "AUTHGUARD_OTA_PASSWORD"
+
+  emb:
+    channels:
+      - accounts
+      - auth
+
+  mongo:
+    connectionString: "mongodb://localhost:27017"
+    database: "authguard"
