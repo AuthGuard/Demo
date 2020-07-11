@@ -1,11 +1,23 @@
 # Example NodeJS Demo
-This demo shown an example of how to use AuthGuard to handle user credentials
+This demo shows an example of how to use AuthGuard to handle user credentials
 and authentication. It shouldn't be used an example of how to write a Node server.
+The project consists of an AuthGuard distribution which uses [MongoDB DAL
+implementation](https://github.com/AuthGuard/Mongo-DAL).
 
-## Configuration
-Before running the project, you need to bootstrap an admin and an admin client
-in AuthGuard first. You can run a test instance of AuthGuard itself using one
-of the provided [test distributions](https://github.com/AuthGuard/test-distribution).
+## Running the Project
+Before running the project, make sure that you have MongoDB installed and running.
+
+### Running AuthGuard
+An AuthGuard distribution is provided as a Gradle application. To run the server
+you can use the following command
+```
+./gradlew run
+or alternatively just
+gradle run
+```
+
+You can also modify the configuration file to change the behavior. Configuration
+documentation is available [here](https://authguard.github.io/config/).
 
 ### Bootstrapping an Admin
 In order to be able to call AuthGuard to create an admin account and application
